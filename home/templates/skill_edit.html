@@ -1,17 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Add new Skills</title>
-</head>
-<body>
+{% extends 'base.html' %}
 
+{% block menu %}{% endblock %}
+
+
+{% block content %}
 <h2>New Skills</h2>
 
 <form method="post" action="." class="form-class">{% csrf_token %}
     {{ form.as_p }}
-   <button type="submit" class="style-class"> Add Skill</button>
+    <button type="submit" class="style-class"> Add Skill</button>
 </form>
-
-</body>
-</html>
+{% endblock %}

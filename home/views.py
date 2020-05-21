@@ -10,7 +10,8 @@ from .models import MySkills
 def landing_page(request):
     data = {
         'name': 'Kalyan',
-        'nums': [1, 2, 3]
+        'nums': [1, 2, 3],
+        'test': 'TEST'
         }
     return render(request, "home.html", data)
 
