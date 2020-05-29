@@ -14,11 +14,32 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
+from django.contrib.auth.models import User
+
 from home.views import landing_page, skills_add, skills_edit
 
+from rest_framework import serializers, viewsets, routers
+
+
+class UserSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = User
+        fields = ['url', 'username', 'email', 'is_staff']
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+router = routers.DefaultRouter()
+router.register('users', UserViewSet)
+
+
 urlpatterns = [
-    path("", landing_page, name="landing_page"),
+    path("", include(router.urls)),
+    # path("", landing_page, name="landing_page"),
     path("skills/add/", skills_add, name="skills_add"),
     path("skills/<int:pk>/", skills_edit, name="skills_edit"),
     path('admin/', admin.site.urls),
