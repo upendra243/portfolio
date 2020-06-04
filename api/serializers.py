@@ -3,7 +3,7 @@ from rest_framework import serializers
 from home.models import MySkills
 
 
-class MySkillSerializer(serializers.Serializer):
+class MySkillSerializerOld(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     title = serializers.CharField(max_length=20, required=True)
     icon_class = serializers.CharField(max_length=30, required=True)
@@ -22,3 +22,9 @@ class MySkillSerializer(serializers.Serializer):
         instance.skills = validated_data.get('skills', instance.skills)
         instance.save()
         return instance
+
+
+class MySkillSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MySkills
+        fields = ['id', 'title', 'icon_class', 'description', 'skills', 'created_at', 'updated_at']

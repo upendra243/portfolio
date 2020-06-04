@@ -17,9 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.contrib.auth.models import User
 
-from home.views import landing_page, skills_add, skills_edit
-
 from rest_framework import serializers, viewsets, routers
+
+from home.views import landing_page, skills_add, skills_edit
+# from api import urls
 
 
 class UserSerializer(serializers.HyperlinkedModelSerializer):
@@ -38,9 +39,12 @@ router.register('users', UserViewSet)
 
 
 urlpatterns = [
-    path("", include(router.urls)),
+    path("users/", include(router.urls)),
     # path("", landing_page, name="landing_page"),
     path("skills/add/", skills_add, name="skills_add"),
     path("skills/<int:pk>/", skills_edit, name="skills_edit"),
     path('admin/', admin.site.urls),
+    path('api/', include('api.urls'))
 ]
+
+# urlpatterns += urls
